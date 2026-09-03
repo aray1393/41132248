@@ -16,7 +16,7 @@
     C: {
       title:'봄날', artist:'BTS', videoId:'xEeFrLSkMm8',
       theme:'spring', light:'#ffe59a', label:'봄날',
-      artwork:'./assets/spring-day-scene.jpg'
+      artwork:'./assets/spring-day-scene.b64'
     },
     D: {
       title:'表裏一体', artist:'ゆず', videoId:'eKoD2CRr_KA',
@@ -113,6 +113,24 @@
       card.classList.add('loaded', 'flash');
       setTimeout(() => card.classList.remove('flash'), 900);
     };
+
+    if (id === 'C') {
+      img.onerror = () => {
+        img.style.display = 'none';
+        placeholder.style.display = 'grid';
+        card.classList.remove('loaded');
+        toast('Cover load failed');
+      };
+      fetch(albums[id].artwork, {cache:'force-cache'})
+        .then(r => {
+          if (!r.ok) throw new Error('cover');
+          return r.text();
+        })
+        .then(b64 => { img.src = `data:image/jpeg;base64,${b64.trim()}`; })
+        .catch(() => img.onerror());
+      return;
+    }
+
     let fallbackTried = false;
     img.onerror = () => {
       if (!fallbackTried) {
