@@ -16,7 +16,7 @@
     C: {
       title:'봄날', artist:'BTS', videoId:'xEeFrLSkMm8',
       theme:'spring', light:'#ffe59a', label:'봄날',
-      artwork:'./assets/spring-day-scene.jpg'
+      artwork:'https://cdn.wallpapersafari.com/69/81/Ut03li.png'
     },
     D: {
       title:'表裏一体', artist:'ゆず', videoId:'eKoD2CRr_KA',
