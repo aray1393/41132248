@@ -16,7 +16,7 @@
     C: {
       title:'봄날', artist:'BTS', videoId:'xEeFrLSkMm8',
       theme:'spring', light:'#ffe59a', label:'봄날',
-      artwork:'https://wallpaperbat.com/img/143045770-pin.png'
+      artwork:'./assets/spring-day-scene.jpg'
     },
     D: {
       title:'表裏一体', artist:'ゆず', videoId:'eKoD2CRr_KA',
@@ -225,6 +225,19 @@
     window.open(url, '_blank', 'noopener');
   }
 
+  function parseNfcHash(){
+    const raw = location.hash.slice(1);
+    const match = raw.match(/^([A-D])(?:$|[.~])/i);
+    if (!match) return;
+
+    const id = match[1].toUpperCase();
+    scanPiece(id);
+
+    try {
+      history.replaceState(null, '', location.pathname + location.search);
+    } catch {}
+  }
+
   document.querySelectorAll('[data-scan]').forEach(btn => {
     btn.onclick = () => scanPiece(btn.dataset.scan);
   });
@@ -266,4 +279,5 @@
 
   const first = IDS.find(id => !!state[id]);
   if (first) selectAlbum(first, false);
+  parseNfcHash();
 })();
